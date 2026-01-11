@@ -100,34 +100,24 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#202225]">
 
-      {/* Hero Section */}
-      <section className="container mx-auto py-12">
-        <div className="text-center space-y-4 mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold text-white">
-            Gezochte Personen
-          </h1>
-          <p className="text-xl text-[#b9bbbe] max-w-2xl mx-auto">
-            Officiële database van gezochte personen binnen de Drerries Roleplay Community
-          </p>
-          
-          {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-6 pt-6">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-white">{stats.total}</div>
-              <div className="text-sm text-[#72767d]">Totaal</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[#f04747]">{stats.active}</div>
-              <div className="text-sm text-[#72767d]">Actief</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[#43b581]">{stats.captured}</div>
-              <div className="text-sm text-[#72767d]">Gevangen</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-[#f04747]">{stats.critical}</div>
-              <div className="text-sm text-[#72767d]">Kritiek</div>
-            </div>
+      {/* Stats Section */}
+      <section className="container mx-auto py-8">
+        <div className="flex flex-wrap justify-center gap-6 mb-8">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white">{stats.total}</div>
+            <div className="text-sm text-[#72767d]">Totaal</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-[#f04747]">{stats.active}</div>
+            <div className="text-sm text-[#72767d]">Actief</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-[#43b581]">{stats.captured}</div>
+            <div className="text-sm text-[#72767d]">Gevangen</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-[#f04747]">{stats.critical}</div>
+            <div className="text-sm text-[#72767d]">Kritiek</div>
           </div>
         </div>
 
