@@ -3,8 +3,11 @@
 import { useState, useMemo, useEffect } from 'react';
 import Header from '@/components/Header';
 import WantedCard from '@/components/WantedCard';
+import AdminControls from '@/components/AdminControls';
 import { supabase } from '@/lib/supabase';
 import { WantedPerson } from '@/types/wanted';
+import { Plus } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
   const [wantedPersons, setWantedPersons] = useState<WantedPerson[]>([]);
@@ -39,6 +42,8 @@ export default function Home() {
           dateIssued: person.date_issued,
           evidence: person.evidence || [],
           aliases: person.aliases || [],
+          mediaUrls: person.media_urls || [],
+          mediaTypes: person.media_types || [],
         }));
 
         setWantedPersons(transformedData);
@@ -160,6 +165,17 @@ export default function Home() {
           </div>
         )}
       </section>
+
+      {/* Floating Action Button - Admin Only */}
+      <AdminControls>
+        <Link
+          href="/admin/add"
+          className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-[#5865f2] to-[#7289da] rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-40"
+          title="Nieuwe Persoon Toevoegen"
+        >
+          <Plus className="w-8 h-8 text-white" />
+        </Link>
+      </AdminControls>
 
       {/* Footer */}
       <footer className="mt-24 py-12">

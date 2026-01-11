@@ -12,6 +12,8 @@ export interface WantedPerson {
   dateIssued: string;
   evidence?: string[];
   aliases?: string[];
+  mediaUrls?: string[];
+  mediaTypes?: ('image' | 'video')[];
 }
 
 export interface Report {

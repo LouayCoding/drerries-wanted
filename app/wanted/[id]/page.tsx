@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ArrowLeft, AlertTriangle, CheckCircle2, DollarSign, MapPin, Bell } from 'lucide-react';
+import { ArrowLeft, AlertTriangle, CheckCircle2, DollarSign, MapPin, Bell, Image as ImageIcon, ZoomIn } from 'lucide-react';
 import Header from '@/components/Header';
+import MediaLightbox from '@/components/MediaLightbox';
 import Link from 'next/link';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
@@ -11,6 +12,8 @@ import { WantedPerson } from '@/types/wanted';
 export default function WantedDetailPage({ params }: { params: { id: string } }) {
   const [person, setPerson] = useState<WantedPerson | null>(null);
   const [loading, setLoading] = useState(true);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     async function fetchPerson() {
@@ -41,6 +44,8 @@ export default function WantedDetailPage({ params }: { params: { id: string } })
           dateIssued: data.date_issued,
           evidence: data.evidence || [],
           aliases: data.aliases || [],
+          mediaUrls: data.media_urls || [],
+          mediaTypes: data.media_types || [],
         };
 
         setPerson(transformedPerson);
@@ -53,6 +58,11 @@ export default function WantedDetailPage({ params }: { params: { id: string } })
 
     fetchPerson();
   }, [params.id]);
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   if (loading) {
     return (
@@ -246,6 +256,52 @@ export default function WantedDetailPage({ params }: { params: { id: string } })
           </section>
         )}
 
+        {/* Media Gallery */}
+        {person.mediaUrls && person.mediaUrls.length > 0 && (
+          <section className="mb-12">
+            <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+              <ImageIcon className="w-8 h-8 text-[#5865f2]" />
+              Bewijs Materiaal
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {person.mediaUrls.map((url, index) => (
+                <button
+                  key={index}
+                  onClick={() => openLightbox(index)}
+                  className="relative aspect-square rounded-xl overflow-hidden group cursor-pointer bg-[#2f3136]"
+                >
+                  {person.mediaTypes && person.mediaTypes[index] === 'video' ? (
+                    <video
+                      src={url}
+                      className="w-full h-full object-cover"
+                      preload="metadata"
+                    />
+                  ) : (
+                    <img
+                      src={url}
+                      alt={`Media ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+
+                  {/* Type Badge */}
+                  <div className="absolute top-2 left-2 px-2 py-1 bg-black/70 rounded text-xs text-white font-medium">
+                    {person.mediaTypes && person.mediaTypes[index] === 'video' ? 'Video' : 'Foto'}
+                  </div>
+
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                    <ZoomIn className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </button>
+              ))}
+            </div>
+            <p className="mt-4 text-sm text-[#72767d] text-center">
+              Klik op een item om deze in volledig scherm te bekijken
+            </p>
+          </section>
+        )}
+
         {/* Warning */}
         <section className="p-8 rounded-2xl bg-[#f04747]/10">
           <div className="flex gap-6">
@@ -265,6 +321,17 @@ export default function WantedDetailPage({ params }: { params: { id: string } })
           </div>
         </section>
       </div>
+
+      {/* Media Lightbox */}
+      {person.mediaUrls && person.mediaUrls.length > 0 && (
+        <MediaLightbox
+          isOpen={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+          mediaUrls={person.mediaUrls}
+          mediaTypes={person.mediaTypes || []}
+          initialIndex={lightboxIndex}
+        />
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, AlertTriangle, Flag } from 'lucide-react';
+import { Menu, AlertTriangle, Flag, Plus, X } from 'lucide-react';
 import SearchAutocomplete from './SearchAutocomplete';
 import ReportModal from './ReportModal';
 import LoginButton from './LoginButton';
@@ -11,6 +11,7 @@ import { useSession } from 'next-auth/react';
 
 export default function Header() {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { data: session, status } = useSession();
 
   return (
@@ -79,6 +80,17 @@ export default function Header() {
                 </Link>
               )}
               
+              {/* Admin Add Button - only for authenticated users */}
+              {session && (
+                <Link
+                  href="/admin/add"
+                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#5865f2] to-[#7289da] text-white rounded-lg hover:shadow-lg hover:shadow-[#5865f2]/20 transition-all font-medium text-sm"
+                >
+                  <Plus className="w-4 h-4" />
+                  Toevoegen
+                </Link>
+              )}
+              
               {/* Melden button - altijd tonen */}
               <button
                 onClick={() => setIsReportModalOpen(true)}
@@ -105,10 +117,139 @@ export default function Header() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <button className="lg:hidden p-2 text-[#b9bbbe] hover:text-white flex-shrink-0">
-              <Menu className="w-6 h-6" />
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 text-[#b9bbbe] hover:text-white flex-shrink-0 transition-colors"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden absolute top-full left-0 right-0 bg-[#2f3136] border-t border-[#202225] shadow-2xl">
+              <nav className="container mx-auto py-4 space-y-1">
+                <Link
+                  href="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-[#b9bbbe] hover:bg-[#40444b] hover:text-white transition-colors rounded-lg font-medium"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/deleted-messages"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-[#b9bbbe] hover:bg-[#40444b] hover:text-white transition-colors rounded-lg font-medium"
+                >
+                  Verwijderd
+                </Link>
+                <Link
+                  href="/edited-messages"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-[#b9bbbe] hover:bg-[#40444b] hover:text-white transition-colors rounded-lg font-medium"
+                >
+                  Aangepast
+                </Link>
+                <Link
+                  href="/user-history"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-[#b9bbbe] hover:bg-[#40444b] hover:text-white transition-colors rounded-lg font-medium"
+                >
+                  Historie
+                </Link>
+                <Link
+                  href="/voice-activity"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-[#b9bbbe] hover:bg-[#40444b] hover:text-white transition-colors rounded-lg font-medium"
+                >
+                  Voice
+                </Link>
+                
+                {/* Dashboard - alleen voor admins */}
+                {session && (
+                  <Link
+                    href="/reports"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-4 py-3 text-[#b9bbbe] hover:bg-[#40444b] hover:text-white transition-colors rounded-lg font-medium"
+                  >
+                    Dashboard
+                  </Link>
+                )}
+                
+                {/* Divider */}
+                <div className="h-px bg-[#202225] my-2"></div>
+                
+                {/* Admin Add - alleen voor admins */}
+                {session && (
+                  <Link
+                    href="/admin/add"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[#5865f2] to-[#7289da] text-white rounded-lg font-medium mx-2"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Toevoegen
+                  </Link>
+                )}
+                
+                {/* Melden button */}
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsReportModalOpen(true);
+                  }}
+                  className="w-full flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[#f04747] to-[#ff6b6b] text-white rounded-lg font-medium mx-2"
+                >
+                  <Flag className="w-4 h-4" />
+                  Melden
+                </button>
+                
+                {/* User info / Login */}
+                <div className="px-4 py-3">
+                  {status === 'loading' ? (
+                    <div className="h-8 bg-[#40444b] rounded-lg animate-pulse"></div>
+                  ) : session ? (
+                    <div className="flex items-center gap-3 p-3 bg-[#40444b] rounded-lg">
+                      {session.user?.image && (
+                        <img 
+                          src={session.user.image} 
+                          alt="Avatar" 
+                          className="w-8 h-8 rounded-full"
+                        />
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <div className="text-white font-medium truncate">
+                          {session.user?.name}
+                        </div>
+                        <button
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            window.location.href = '/api/auth/signout';
+                          }}
+                          className="text-xs text-[#f04747] hover:underline"
+                        >
+                          Uitloggen
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        window.location.href = '/api/auth/signin';
+                      }}
+                      className="w-full px-4 py-2 bg-[#5865f2] hover:bg-[#4752c4] text-white rounded-lg transition-colors font-medium"
+                    >
+                      Admin Login
+                    </button>
+                  )}
+                </div>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
