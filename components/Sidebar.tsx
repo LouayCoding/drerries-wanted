@@ -24,7 +24,6 @@ export default function Sidebar() {
 
   const adminItems = [
     { href: '/reports', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/admin/add', label: 'Toevoegen', icon: Plus },
   ];
 
   const isActive = (href: string) => pathname === href;
