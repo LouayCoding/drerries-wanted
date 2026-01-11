@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
 import ToastProvider from "@/components/ToastProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 const gilroy = localFont({
   src: [
@@ -37,6 +38,7 @@ export default function RootLayout({
           {children}
           <ToastProvider />
         </SessionProvider>
+        <Analytics />
       </body>
     </html>
   );

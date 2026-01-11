@@ -356,3 +356,5 @@ vercel --prod --yes
 **Laatste Update**: 11 Januari 2026
 **Auteur**: AI Assistant via Cursor IDE
 
+
+
