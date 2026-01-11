@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Colors - Darker theme */
+  --background: #202225;
+  --surface: #292b2f;
+  --surface-elevated: #2f3136;
+  --input-bg: #40444b;
+  --text-primary: #ffffff;
+  --text-secondary: #b9bbbe;
+  --text-muted: #72767d;
+  --accent: #5865f2;
+  --success: #43b581;
+  --warning: #faa61a;
+  --danger: #f04747;
+  
+  /* Spacing */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 48px;
+  --spacing-xxl: 64px;
+  
+  /* Typography */
+  --font-h1: 48px;
+  --font-h2: 36px;
+  --font-h3: 24px;
+  --font-body: 16px;
+  --font-small: 14px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --font-h1: 32px;
+    --font-h2: 24px;
+    --font-h3: 20px;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--background);
+  font-family: 'Gilroy', system-ui, -apple-system, sans-serif;
+  font-size: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: var(--font-h1);
+}
+
+h2 {
+  font-size: var(--font-h2);
+}
+
+h3 {
+  font-size: var(--font-h3);
+}
+
+small {
+  font-size: var(--font-small);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .container {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+  
+  @media (max-width: 640px) {
+    .container {
+      padding-left: var(--spacing-sm);
+      padding-right: var(--spacing-sm);
+    }
+  }
+  
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    h1 {
+      letter-spacing: -0.03em;
+    }
+    
+    /* Better touch targets */
+    button, a {
+      min-height: 44px;
+    }
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--surface);
+  }
+  
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--surface-elevated);
+    border-radius: 4px;
+  }
+  
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--input-bg);
+  }
+}
