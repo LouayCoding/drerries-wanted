@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import Header from '@/components/Header';
 import { supabase } from '@/lib/supabase';
 import { VoiceActivity, VoiceStats } from '@/types/wanted';
 import { Mic, Clock, Users, TrendingUp, LogIn, LogOut, Filter, Award } from 'lucide-react';
@@ -152,13 +151,10 @@ export default function VoiceActivityPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#202225]">
-        <Header />
-        <div className="container mx-auto py-16">
-          <div className="flex flex-col items-center justify-center gap-4">
-            <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-[#b9bbbe]">Laden van voice activiteit...</p>
-          </div>
+      <div className="container mx-auto py-16">
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-[#b9bbbe]">Laden van voice activiteit...</p>
         </div>
       </div>
     );
@@ -168,7 +164,6 @@ export default function VoiceActivityPage() {
 
   return (
     <div className="min-h-screen bg-[#202225]">
-      <Header />
 
       <div className="container mx-auto py-8 px-4">
         {/* Title */}

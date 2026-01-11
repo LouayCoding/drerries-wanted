@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/Header';
 import MediaUploader from '@/components/MediaUploader';
 import { WantedPerson } from '@/types/wanted';
 import { ArrowLeft, Save, Loader2, Plus, X, AlertCircle } from 'lucide-react';
@@ -182,11 +181,8 @@ export default function EditWantedPage({ params }: { params: { id: string } }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#202225]">
-        <Header />
-        <div className="container mx-auto py-16 flex items-center justify-center">
-          <Loader2 className="w-12 h-12 text-[#5865f2] animate-spin" />
-        </div>
+      <div className="container mx-auto py-16 flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-[#5865f2] animate-spin" />
       </div>
     );
   }
@@ -197,7 +193,6 @@ export default function EditWantedPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-[#202225]">
-      <Header />
 
       <div className="container mx-auto py-8 px-4">
         {/* Header */}

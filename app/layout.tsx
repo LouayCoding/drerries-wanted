@@ -4,6 +4,8 @@ import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
 import ToastProvider from "@/components/ToastProvider";
 import { Analytics } from "@vercel/analytics/next";
+import Sidebar from "@/components/Sidebar";
+import SearchAutocomplete from "@/components/SearchAutocomplete";
 
 const gilroy = localFont({
   src: [
@@ -35,7 +37,23 @@ export default function RootLayout({
     <html lang="nl">
       <body className={gilroy.className}>
         <SessionProvider>
-          {children}
+          <div className="flex min-h-screen bg-[#202225]">
+            {/* Sidebar */}
+            <Sidebar />
+            
+            {/* Main Content */}
+            <div className="flex-1 lg:ml-64">
+              {/* Top Search Bar - Desktop Only */}
+              <div className="hidden lg:block sticky top-0 z-40 bg-[#292b2f] border-b border-[#202225] px-6 py-4">
+                <SearchAutocomplete />
+              </div>
+              
+              {/* Page Content */}
+              <main className="pt-16 lg:pt-0">
+                {children}
+              </main>
+            </div>
+          </div>
           <ToastProvider />
         </SessionProvider>
         <Analytics />

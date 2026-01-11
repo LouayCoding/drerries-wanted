@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { ArrowLeft, AlertTriangle, CheckCircle2, DollarSign, MapPin, Bell, Image as ImageIcon, ZoomIn } from 'lucide-react';
-import Header from '@/components/Header';
 import MediaLightbox from '@/components/MediaLightbox';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -66,13 +65,10 @@ export default function WantedDetailPage({ params }: { params: { id: string } })
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#202225]">
-        <Header />
-        <div className="container mx-auto py-16">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-[#b9bbbe]">Laden...</p>
-          </div>
+      <div className="container mx-auto py-16">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-[#b9bbbe]">Laden...</p>
         </div>
       </div>
     );
@@ -80,15 +76,12 @@ export default function WantedDetailPage({ params }: { params: { id: string } })
 
   if (!person) {
     return (
-      <div className="min-h-screen bg-[#202225]">
-        <Header />
-        <div className="container mx-auto py-16">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Persoon niet gevonden</h2>
-            <Link href="/" className="text-[#5865f2] hover:underline text-lg">
-              Terug naar database
-            </Link>
-          </div>
+      <div className="container mx-auto py-16">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Persoon niet gevonden</h2>
+          <Link href="/" className="text-[#5865f2] hover:underline text-lg">
+            Terug naar database
+          </Link>
         </div>
       </div>
     );
@@ -112,7 +105,6 @@ export default function WantedDetailPage({ params }: { params: { id: string } })
 
   return (
     <div className="min-h-screen bg-[#202225]">
-      <Header />
 
       <div className="container mx-auto py-8">
         {/* Back Button */}

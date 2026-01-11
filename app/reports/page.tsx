@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import Header from '@/components/Header';
 import { supabase } from '@/lib/supabase';
 import { ReportWithDetails } from '@/types/wanted';
 import { Flag, Search, Filter, ChevronDown, ChevronUp, FileText } from 'lucide-react';
@@ -173,13 +172,10 @@ export default function ReportsPage() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-[#202225]">
-        <Header />
-        <div className="container mx-auto py-16">
-          <div className="flex flex-col items-center justify-center gap-4">
-            <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-[#b9bbbe]">Laden van reports...</p>
-          </div>
+      <div className="container mx-auto py-16">
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-[#b9bbbe]">Laden van reports...</p>
         </div>
       </div>
     );
@@ -191,7 +187,6 @@ export default function ReportsPage() {
 
   return (
     <div className="min-h-screen bg-[#202225]">
-      <Header />
 
       <div className="container mx-auto py-8">
         {/* Title */}

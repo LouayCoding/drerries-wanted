@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import Header from '@/components/Header';
 import WantedCard from '@/components/WantedCard';
 import AdminControls from '@/components/AdminControls';
 import { supabase } from '@/lib/supabase';
@@ -89,13 +88,10 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#202225]">
-        <Header />
-        <div className="container mx-auto py-16">
-          <div className="flex flex-col items-center justify-center gap-4">
-            <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-[#b9bbbe]">Laden van wanted persons...</p>
-          </div>
+      <div className="container mx-auto py-16">
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-[#b9bbbe]">Laden van wanted persons...</p>
         </div>
       </div>
     );
@@ -103,7 +99,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#202225]">
-      <Header />
 
       {/* Hero Section */}
       <section className="container mx-auto py-12">

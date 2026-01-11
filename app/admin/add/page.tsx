@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/Header';
 import MediaUploader from '@/components/MediaUploader';
 import { ArrowLeft, Save, Loader2, Plus, X, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
@@ -136,7 +135,6 @@ export default function AddWantedPage() {
 
   return (
     <div className="min-h-screen bg-[#202225]">
-      <Header />
 
       <div className="container mx-auto py-8 px-4">
         {/* Header */}

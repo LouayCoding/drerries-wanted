@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import Header from '@/components/Header';
 import DiffViewer from '@/components/DiffViewer';
 import { supabase } from '@/lib/supabase';
 import { EditedMessage } from '@/types/wanted';
@@ -104,13 +103,10 @@ export default function EditedMessagesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#202225]">
-        <Header />
-        <div className="container mx-auto py-16">
-          <div className="flex flex-col items-center justify-center gap-4">
-            <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-[#b9bbbe]">Laden van aangepaste berichten...</p>
-          </div>
+      <div className="container mx-auto py-16">
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="w-16 h-16 border-4 border-[#5865f2] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-[#b9bbbe]">Laden van aangepaste berichten...</p>
         </div>
       </div>
     );
@@ -118,7 +114,6 @@ export default function EditedMessagesPage() {
 
   return (
     <div className="min-h-screen bg-[#202225]">
-      <Header />
 
       <div className="container mx-auto py-8">
         {/* Title */}
